@@ -63,7 +63,7 @@ class Gene:
     def genotypes(self, alleles):
         self._genotypes = []
         allele_frequencies = [a.frequency for a in self.alleles]
-        print(allele_frequencies)
+        # print(allele_frequencies)
         p = _polynomial_expansion(allele_frequencies)
         for (a1_idx, a2_idx) in p:
             freq = p[(a1_idx, a2_idx)]
@@ -78,15 +78,14 @@ def _polynomial_expansion(values):
     vals = enumerate(values)
     vals = list(vals)
     vals2 = vals.copy()
-    print(vals, vals2)
     for idx1, v1 in vals:
         for idx2, v2 in vals2:
             if (idx1, idx2) not in combos and idx1 == idx2:
                 result[(idx1, idx2)] = v1*v2
-                print(str(v1)+"^2")
+                # print(str(v1)+"^2")
             elif (idx1, idx2) not in combos:
                 result[(idx1, idx2)] = 2*v1*v2
-                print("2(" + str(v1) + ")("+str(v2)+")")
+                # print("2(" + str(v1) + ")("+str(v2)+")")
             combos.append((idx1, idx2))
             combos.append((idx2, idx1))
     return result
@@ -99,7 +98,7 @@ def chi_square_critical_value(dof, p=0.05):
         for i in table.split("\n"):
             rows.append(i.split())
         f.close()
-    print(rows)
+    # print(rows)
     col_num = None
     for col_idx, col in enumerate(rows[0]):
         if float(col) == 1-p:
@@ -128,24 +127,21 @@ def reject_null_hypothesis(expected, observed, dof, p=0.05):
 
 
 if __name__ == "__main__":
-
+    # example from Wiki page
     A = Allele(index = 0, symbol="A", dominance=1, frequency=0.954)
     a = Allele(index =1, symbol="a", dominance=0, frequency=0.046)
     g = Gene((A, a), 1612)
     
-    print(g.alleles)
+    # print(g.alleles)
     genotypes = g.genotypes
     popsize = g.popsize
     expected = []
     observed = [1469, 138, 5]
     for g in genotypes:
-        # print(g.alleles[0].symbol+g.alleles[1].symbol)
-        # print(g.is_homozygote)
         expected.append(g.exp_frequency * popsize)
 
     print("expected: "+str(expected))
     print("observed: "+str(observed))
-    #print(chi_square_critical_value(dof=14, p=0.05))
     print(reject_null_hypothesis(expected, observed, 1))
 
     
