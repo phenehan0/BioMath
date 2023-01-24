@@ -71,6 +71,7 @@ class Gene:
             self._genotypes.append(g)
 
 def _polynomial_expansion(values):
+    #TODO this is only for binomials, should be generalized for polynomials of an arbitrary degree
     result = 0
     combos = []
     result = {}
@@ -143,35 +144,3 @@ if __name__ == "__main__":
     print("expected: "+str(expected))
     print("observed: "+str(observed))
     print(reject_null_hypothesis(expected, observed, 1))
-
-    
-
-
-
-
-    
-
-    
-    
-
-
-
-
-
-
-
-            
-        
-    
-
-        
-
-
-    
-
-
-        
-
-    
-    
-    
