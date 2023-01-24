@@ -72,10 +72,8 @@ class Gene:
 
 def _polynomial_expansion(values):
     #TODO this is only for binomials, should be generalized for polynomials of an arbitrary degree
-    result = 0
     combos = []
     result = {}
-    result_str = ""
     vals = enumerate(values)
     vals = list(vals)
     vals2 = vals.copy()
@@ -94,7 +92,6 @@ def _polynomial_expansion(values):
 def chi_square_critical_value(dof, p=0.05):
     rows = []
     with open("chi_square_critical_values.txt", "r") as f:
-
         table = f.read()
         for i in table.split("\n"):
             rows.append(i.split())
